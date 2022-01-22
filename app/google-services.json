@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "125465460818",
+    "project_id": "budgetmanager-b7e7a",
+    "storage_bucket": "budgetmanager-b7e7a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125465460818:android:13701f7c6914c44c11df8b",
+        "android_client_info": {
+          "package_name": "hr.markic.budgetmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "125465460818-tfaqdk9mkvcnmpp0l1nvp0mq92ro6sao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPmhA38_q4i7rtZQTG7oRzmHgMVd_u1L0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "125465460818-tfaqdk9mkvcnmpp0l1nvp0mq92ro6sao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
