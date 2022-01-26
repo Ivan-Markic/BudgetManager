@@ -1,9 +1,6 @@
 package hr.markic.budgetmanager.fragments
 
 import android.content.ContentValues
-import android.content.Intent
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,14 +10,19 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import hr.markic.budgetmanager.MainActivity
 import hr.markic.budgetmanager.R
+import hr.markic.budgetmanager.SplashScreenActivity
 import hr.markic.budgetmanager.databinding.FragmentLoginBinding
+import hr.markic.budgetmanager.framework.startActivity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
 
 private const val EMAIL_PARAMETER = "hr.markic.fragments.email_parameter"
 private const val PASSWORD_PARAMETER = "hr.markic.fragments.password_parameter"
+lateinit var CURRENT_USERNAME: String
 
 class LoginFragment : Fragment() {
 
@@ -48,20 +50,31 @@ class LoginFragment : Fragment() {
         var tvRegister = binding.tvRegister;
         var btnLogin = binding.btnLogin;
 
-        if (!email.isNullOrEmpty() && !password.isNullOrEmpty()){
+        binding.etEmail.setText("ivanmarka555@gmail.com");
+        binding.etPassword.setText("peropero");
+
+        if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
             binding.etEmail.setText(email)
             binding.etPassword.setText(password)
         }
 
-        tvRegister.setOnClickListener{
+        tvRegister.setOnClickListener {
 
-            activity?.supportFragmentManager?.beginTransaction()?.
-            replace(R.id.frameLayout, RegisterFragment())?.commit()
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.frameLayout, RegisterFragment())?.commit()
         }
 
-        btnLogin.setOnClickListener{
+        btnLogin.setOnClickListener {
 
-            loginUser(binding.etEmail.text.toString(), binding.etPassword.text.toString())
+            if (binding.etEmail.text.toString()
+                    .isNotBlank() && binding.etPassword.text.isNotBlank()
+            )
+                GlobalScope.launch {
+                    loginUser(binding.etEmail.text.toString(), binding.etPassword.text.toString())
+                } else {
+                binding.etEmail.error = "Email is mandatory";
+                binding.etEmail.error = "Password is mandatory";
+            }
         }
 
         return binding.root
@@ -72,22 +85,20 @@ class LoginFragment : Fragment() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(ContentValues.TAG, "createUserWithEmail:success")
-                    Toast.makeText(context, "Authentication successed.",
-                        Toast.LENGTH_SHORT).show()
-                    val user = auth.currentUser
-                    //Pod upitnikom iz nekog razloga app ne radi
 
-                        //Do ovog dijela
-                        startActivity(Intent(context, MainActivity::class.java).apply {
-                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)})
-                    }
-                 else {
+                    val username = auth.currentUser!!.displayName!!;
+
+                    CURRENT_USERNAME = username
+
+                    requireContext().startActivity<SplashScreenActivity>()
+
+                } else {
                     // If sign in fails, display a message to the user.
                     Log.w(ContentValues.TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(context, task.exception?.message,
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context, task.exception?.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 

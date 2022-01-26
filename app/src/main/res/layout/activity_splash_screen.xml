@@ -2,22 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="@dimen/paddingOnSplashScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    tools:context=".MainActivity">
+    tools:context=".SplashScreenActivity">
+
+
+    <ImageView
+        android:id="@+id/ivSplash"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/ivSplashHeight"
+        android:src="@drawable/common_full_open_on_phone"/>
 
     <TextView
-        android:id="@+id/tvUserName"
+        android:id="@+id/tvSplash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="username" />
+        android:layout_gravity="center"
+        android:text="@string/please_wait"/>
 
-    <TextView
-        android:layout_gravity="center_vertical"
-        android:id="@+id/tvEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="email" />
 
 </LinearLayout>

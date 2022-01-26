@@ -21,12 +21,10 @@ class AuthenticationActivity : AppCompatActivity() {
 
     
     private lateinit var binding : ActivityAuthenticationBinding
-    private lateinit var usersCloudEndPoint: DatabaseReference
-    private lateinit var billsCloudEndPoint: DatabaseReference
-    private lateinit var categoriesCloudEndPoint: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityAuthenticationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -42,18 +40,5 @@ class AuthenticationActivity : AppCompatActivity() {
         } else {
             supportFragmentManager.beginTransaction().replace(R.id.frameLayout, LoginFragment()).commit()
         }
-
-
-        val database = FirebaseDatabase.
-            getInstance("https://budgetmanager-b7e7a-default-rtdb.europe-west1.firebasedatabase.app/").reference;
-
-        //usersCloudEndPoint = database.child("users");
-        //billsCloudEndPoint = database.child("bills")
-        //categoriesCloudEndPoint = database.child("categories")
-
-        /*usersCloudEndPoint.setValue("Petar").addOnFailureListener(OnFailureListener() {
-            Log.d("setting values", it.message!!)
-        })*/
-
     }
 }

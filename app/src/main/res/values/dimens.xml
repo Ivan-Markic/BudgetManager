@@ -9,4 +9,6 @@
     <dimen name="textSizeLogin">18sp</dimen>
     <dimen name="bottomMarginLogin">40dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="paddingOnSplashScreen">50dp</dimen>
+    <dimen name="ivSplashHeight">400dp</dimen>
 </resources>

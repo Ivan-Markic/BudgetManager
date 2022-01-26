@@ -2,7 +2,6 @@ package hr.markic.budgetmanager.fragments
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +10,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import hr.markic.budgetmanager.R
-import hr.markic.budgetmanager.databinding.FragmentLoginBinding
 import hr.markic.budgetmanager.databinding.FragmentRegisterBinding
-
+import hr.markic.budgetmanager.model.User
 
 
 class RegisterFragment : Fragment() {
@@ -27,79 +26,83 @@ class RegisterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
 
         auth = Firebase.auth
 
-        binding.btnRegister.setOnClickListener{
+        binding.btnRegister.setOnClickListener {
 
-            if(dataIsValid()){
+            if (dataIsValid()) {
 
-                
-                var email = binding.etEmail.text.toString()
-                var password = binding.etPassword.text.toString()
+                val email = binding.etEmail.text.toString()
+                val password = binding.etPassword.text.toString()
 
                 registerUser(email, password)
 
-            }
-            else{
+            } else {
+                binding.etUsername.error = "Username is mandatory"
                 binding.etEmail.error = "Email is mandatory"
                 binding.etPassword.error = "Password is mandatory"
             }
         }
-
         return binding.root
     }
 
     private fun registerUser(email: String, password: String) {
 
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener() { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "createUserWithEmail:success")
-                    Toast.makeText(context, "Authentication successed.",
-                        Toast.LENGTH_SHORT).show()
+        val username = binding.etUsername.text.toString()
+        val database = FirebaseDatabase.getInstance("https://budgetmanager-b7e7a-default-rtdb.europe-west1.firebasedatabase.app/");
+        val usersDB = database.getReference("Users")
 
-                    val userToken = auth.currentUser!!.getIdToken(true);
-                    val firstName = binding.etFirstname.text.toString()
-                    val lastName = binding.etLastname.text.toString()
-                    val database = FirebaseDatabase.
-                    getInstance("https://budgetmanager-b7e7a-default-rtdb.europe-west1.firebasedatabase.app/").reference;
+        usersDB.child(username).get().addOnSuccessListener {
 
-                    val userCollection = FirebaseDatabase.getInstance().getReference("Users")
-                    userCollection.child(userToken.toString()).setValue(user);
+            if (!it.exists()){
+                auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener() { task ->
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success")
+                            Toast.makeText(
+                                context, "Authentication successed.",
+                                Toast.LENGTH_SHORT
+                            ).show()
 
-                    database.child(userName).setValue(User).addOnSuccessListener {
+                            val user = User(username, email);
 
-                        binding.firstName.text.clear()
-                        binding.lastName.text.clear()
-                        binding.age.text.clear()
-                        binding.userName.text.clear()
+                            usersDB.child(user.username).setValue(user);
 
-                        Toast.makeText(this,"Successfully Saved",Toast.LENGTH_SHORT).show()
+                            val userProfileChangeRequest = userProfileChangeRequest {
+                                this.displayName = username
+                            }
 
-                    }.addOnFailureListener{
+                            auth.currentUser!!.updateProfile(userProfileChangeRequest)
 
-                        Toast.makeText(this,"Failed",Toast.LENGTH_SHORT).show()
+                            activity?.supportFragmentManager?.beginTransaction()
+                                ?.replace(R.id.frameLayout, LoginFragment.newInstance(email, password))
+                                ?.commit()
 
-
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                            Toast.makeText(
+                                context, task.exception?.message,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
 
-                    activity?.supportFragmentManager?.beginTransaction()?.
-                    replace(R.id.frameLayout, LoginFragment.newInstance(email, password))?.commit()
-
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(context, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
-                }
+            } else {
+                Toast.makeText(context, "User with this username exist, try different", Toast.LENGTH_LONG).show()
             }
+        }
+
+
 
     }
 
-    private fun dataIsValid() = binding.etEmail.text.isNotBlank() && binding.etPassword.text.isNotBlank()
+    private fun dataIsValid() =
+        binding.etEmail.text.isNotBlank() && binding.etPassword.text.isNotBlank()
+                && binding.etUsername.text.isNotBlank()
 }
