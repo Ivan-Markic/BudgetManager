@@ -3,7 +3,7 @@
     <dimen name="fragment_horizontal_margin">16dp</dimen>
     <dimen name="fragment_vertical_margin">16dp</dimen>
     <dimen name="tvLoginMargin">20dp</dimen>
-    <dimen name="loginMarginTop">250dp</dimen>
+    <dimen name="loginMarginTop">150dp</dimen>
     <dimen name="textSizeRegister">18sp</dimen>
     <dimen name="marginTopRegister">170dp</dimen>
     <dimen name="textSizeLogin">18sp</dimen>
@@ -11,4 +11,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="paddingOnSplashScreen">50dp</dimen>
     <dimen name="ivSplashHeight">400dp</dimen>
+    <dimen name="splashTextSize">50sp</dimen>
+    <dimen name="ivSplashWidth">300dp</dimen>
 </resources>

@@ -15,7 +15,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import hr.markic.budgetmanager.R
 import hr.markic.budgetmanager.databinding.FragmentRegisterBinding
+import hr.markic.budgetmanager.model.Bill
 import hr.markic.budgetmanager.model.User
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 
 class RegisterFragment : Fragment() {
@@ -55,6 +58,7 @@ class RegisterFragment : Fragment() {
         val username = binding.etUsername.text.toString()
         val database = FirebaseDatabase.getInstance("https://budgetmanager-b7e7a-default-rtdb.europe-west1.firebasedatabase.app/");
         val usersDB = database.getReference("Users")
+        val billsDB = database.getReference("Bills")
 
         usersDB.child(username).get().addOnSuccessListener {
 
@@ -69,9 +73,8 @@ class RegisterFragment : Fragment() {
                                 Toast.LENGTH_SHORT
                             ).show()
 
-                            val user = User(username, email);
-
-                            usersDB.child(user.username).setValue(user);
+                            val user = User(username, email)
+                            usersDB.child(user.username).setValue(user)
 
                             val userProfileChangeRequest = userProfileChangeRequest {
                                 this.displayName = username

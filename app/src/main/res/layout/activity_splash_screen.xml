@@ -11,15 +11,16 @@
 
     <ImageView
         android:id="@+id/ivSplash"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/ivSplashWidth"
         android:layout_height="@dimen/ivSplashHeight"
-        android:src="@drawable/common_full_open_on_phone"/>
+        android:src="@drawable/splash_screen_image"/>
 
     <TextView
         android:id="@+id/tvSplash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        style="@style/SplashScreenImageStyle"
         android:text="@string/please_wait"/>
 
 
