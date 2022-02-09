@@ -2,18 +2,16 @@ package hr.markic.budgetmanager
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import androidx.fragment.app.Fragment
 import hr.markic.budgetmanager.databinding.ActivityMainBinding
+import hr.markic.budgetmanager.fragments.CharFragment
+import hr.markic.budgetmanager.fragments.FactFragment
 import hr.markic.budgetmanager.fragments.MapsFragment
-import hr.markic.budgetmanager.model.User
 import hr.markic.budgetmanager.repository.RepositoryFactory
-import hr.markic.budgetmanager.repository.usersDB
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
-    private lateinit var user : User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,21 +21,27 @@ class MainActivity : AppCompatActivity() {
 
         RepositoryFactory.createRepository().getLocationsForBills()
 
-        usersDB.child(Firebase.auth.currentUser!!.displayName.toString()).get().addOnSuccessListener {
+        val charFragment = CharFragment()
+        val mapFragment = MapsFragment()
+        val factFragment = FactFragment()
 
-            if (it.exists()){
+        setCurrentFragment(charFragment)
 
-                val email = it.child("email").value.toString()
-                val username = it.child("username").value.toString()
-
-                user = User(email, username)
-
-                supportFragmentManager.beginTransaction().replace(R.id.mainFrameLayout, MapsFragment()).commit()
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.graph->setCurrentFragment(charFragment)
+                R.id.map->setCurrentFragment(mapFragment)
+                R.id.fact->setCurrentFragment(factFragment)
 
             }
+            true
         }
+    }
 
-
-
+    private fun setCurrentFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.mainFrameLayout,fragment)
+            commit()
+        }
     }
 }

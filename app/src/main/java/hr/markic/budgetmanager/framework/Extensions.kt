@@ -29,6 +29,7 @@ import hr.markic.budgetmanager.R
 import hr.markic.budgetmanager.model.Bill
 import hr.markic.budgetmanager.model.Item
 import hr.markic.budgetmanager.model.Location
+import hr.markic.budgetmanager.repository.AppRepository
 import hr.markic.budgetmanager.repository.RepositoryFactory
 import hr.markic.budgetmanager.repository.auth
 import java.time.LocalDateTime
@@ -185,6 +186,7 @@ fun Context.buildDialogAlert(it: LatLng, mMap:GoogleMap) {
 
             val location = Location(titleText, it.latitude, it.longitude, colorName, colorID, bill.billID)
 
+            RepositoryFactory.createRepository()
             RepositoryFactory.createRepository().addBill(bill)
             RepositoryFactory.createRepository().addLocation(location)
         }

@@ -20,7 +20,9 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
-        app:itemTextColor="@android:color/holo_blue_dark"
+        app:itemTextColor="@android:color/background_dark"
+        android:outlineSpotShadowColor="@android:color/holo_green_dark"
+        android:outlineAmbientShadowColor="@android:color/holo_red_dark"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         app:layout_constraintBottom_toBottomOf="parent"

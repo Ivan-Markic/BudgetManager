@@ -24,7 +24,6 @@ import hr.markic.budgetmanager.model.Location
 import hr.markic.budgetmanager.model.User
 import java.time.LocalDateTime
 import java.time.ZoneOffset
-import java.util.concurrent.CountDownLatch
 
 val auth:FirebaseAuth = Firebase.auth
 val database = FirebaseDatabase.getInstance("https://budgetmanager-b7e7a-default-rtdb.europe-west1.firebasedatabase.app/")
@@ -104,10 +103,12 @@ class AppRepository {
     fun addBill(bill: Bill) {
 
         billDB.child(bill.billID.toString()).setValue(bill)
+        bills.add(bill)
     }
 
     fun addLocation(location: Location) {
         locationDB.child(location.billID.toString()).setValue(location)
+        locations.add(location)
     }
 
     fun loadMarkers(mMap: GoogleMap, context: Context) {

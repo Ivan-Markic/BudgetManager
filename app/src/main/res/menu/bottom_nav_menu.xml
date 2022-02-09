@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/graph"
+        android:title="@string/graph"
+        android:icon="@drawable/ic_graph_foreground"/>
+    <item
+        android:id="@+id/map"
+        android:title="@string/map"
+        android:icon="@drawable/ic_map_foreground"/>
+    <item
+        android:id="@+id/fact"
+        android:title="@string/fact"
+        android:icon="@drawable/ic_fact_foreground"/>
+</menu>
