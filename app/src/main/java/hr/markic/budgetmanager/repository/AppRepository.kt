@@ -183,12 +183,6 @@ class AppRepository {
         }
     }
 
-    private fun getBillsForUser(username: String){
-
-        bills.filter { bill -> bill.username == username }
-
-    }
-
     fun getBills() {
 
         billDB.get().addOnSuccessListener {
@@ -202,9 +196,10 @@ class AppRepository {
                     val time: LocalDateTime =
                         LocalDateTime.ofEpochSecond(billId, 0, ZoneOffset.UTC)
 
-                    bills.add(Bill(billId, title, amount.toDouble(), time, username))
+                    if(auth.currentUser!!.displayName.toString() == username){
+                        bills.add(Bill(billId, title, amount.toDouble(), time, username))
+                    }
                 }
-                getBillsForUser(auth.currentUser!!.displayName.toString())
             }
         }
     }

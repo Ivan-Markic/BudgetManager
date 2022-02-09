@@ -48,6 +48,9 @@ class LoginFragment : Fragment() {
         binding.etEmail.setText("ivanmarka555@gmail.com");
         binding.etPassword.setText("peropero");
 
+        binding.etEmail.setText("juric.filip21@gmail.com");
+        binding.etPassword.setText("filipfilip");
+
         if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
             binding.etEmail.setText(email)
             binding.etPassword.setText(password)
