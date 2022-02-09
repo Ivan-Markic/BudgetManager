@@ -17,7 +17,7 @@ import java.time.YearMonth
 class CharFragment : Fragment() {
 
     lateinit var binding: FragmentCharBinding
-    lateinit var charUtil: CharUtil
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,13 +26,12 @@ class CharFragment : Fragment() {
 
         binding = FragmentCharBinding.inflate(inflater, container, false)
 
-        charUtil = CharUtil(binding.bcCosts)
+        val charUtil = CharUtil(binding.bcCosts)
 
 
         val listOfGraphDisplay = resources.getStringArray(R.array.listOfGraphDisplay)
 
         val categories = resources.getStringArray(R.array.categories)
-
 
         val spinnerArrayAdapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, listOfGraphDisplay)
         spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)

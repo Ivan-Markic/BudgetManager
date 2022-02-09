@@ -29,15 +29,6 @@ class AuthenticationActivity : AppCompatActivity() {
         binding = ActivityAuthenticationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        auth.signOut()
-
-        val user = Firebase.auth.currentUser
-
-        if (user != null) {
-            startActivity(Intent(this, MainActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)})
-        } else {
-            supportFragmentManager.beginTransaction().replace(R.id.frameLayout, LoginFragment()).commit()
-        }
+        supportFragmentManager.beginTransaction().replace(R.id.frameLayout, LoginFragment()).commit()
     }
 }

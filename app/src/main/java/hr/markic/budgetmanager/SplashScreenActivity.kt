@@ -37,8 +37,8 @@ class SplashScreenActivity : AppCompatActivity() {
         } else {
             if (isOnline()) {
                 RepositoryFactory.createRepository().getBills()
-                Intent(this, NasaService::class.java).apply {
-                    NasaService.enqueue(
+                Intent(this, ProductService::class.java).apply {
+                    ProductService.enqueue(
                         this@SplashScreenActivity,
                         this
                     )

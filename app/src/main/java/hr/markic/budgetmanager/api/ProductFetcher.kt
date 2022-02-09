@@ -19,13 +19,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ProductFetcher(private val context: Context) {
-    private var nasaApi: NasaApi
+    private var nasaApi: ProductApi
     init {
         val retrofit = Retrofit.Builder()
             .baseUrl(API_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        nasaApi = retrofit.create(NasaApi::class.java)
+        nasaApi = retrofit.create(ProductApi::class.java)
     }
 
     fun fetchItems() {

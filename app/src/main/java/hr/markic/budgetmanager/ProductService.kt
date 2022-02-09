@@ -6,7 +6,7 @@ import androidx.core.app.JobIntentService
 import hr.markic.budgetmanager.api.ProductFetcher
 
 private const val JOB_ID = 1
-class NasaService : JobIntentService() {
+class ProductService : JobIntentService() {
 
     override fun onHandleWork(intent: Intent) {
 
@@ -15,7 +15,7 @@ class NasaService : JobIntentService() {
 
     companion object {
         fun enqueue(context: Context, intent: Intent) {
-            enqueueWork(context, NasaService::class.java, JOB_ID, intent)
+            enqueueWork(context, ProductService::class.java, JOB_ID, intent)
         }
     }
 }

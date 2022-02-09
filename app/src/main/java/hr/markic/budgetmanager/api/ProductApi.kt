@@ -4,7 +4,8 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 const val API_URL = "https://fakestoreapi.com/"
-interface NasaApi {
+
+interface ProductApi {
     @GET("products?limit=20")
     fun fetchItems() : Call<List<ProductItem>>
 }

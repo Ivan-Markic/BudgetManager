@@ -1,27 +1,12 @@
 package hr.markic.budgetmanager.fragments
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
-import hr.markic.budgetmanager.R
 import hr.markic.budgetmanager.databinding.FragmentRegisterBinding
-import hr.markic.budgetmanager.model.Bill
-import hr.markic.budgetmanager.model.User
-import hr.markic.budgetmanager.repository.AppRepository
 import hr.markic.budgetmanager.repository.RepositoryFactory
-import kotlinx.coroutines.GlobalScope
-import java.time.LocalDateTime
-import java.time.ZoneOffset
 
 
 class RegisterFragment : Fragment() {

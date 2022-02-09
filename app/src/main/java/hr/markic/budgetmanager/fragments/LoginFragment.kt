@@ -45,12 +45,6 @@ class LoginFragment : Fragment() {
 
         binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        binding.etEmail.setText("ivanmarka555@gmail.com");
-        binding.etPassword.setText("peropero");
-
-        binding.etEmail.setText("juric.filip21@gmail.com");
-        binding.etPassword.setText("filipfilip");
-
         if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
             binding.etEmail.setText(email)
             binding.etPassword.setText(password)
@@ -71,9 +65,9 @@ class LoginFragment : Fragment() {
                     RepositoryFactory.createRepository()
                         .loginUser(binding.etEmail.text.toString(), binding.etPassword.text.toString(), requireContext())
                 } else {
-                binding.etEmail.error = "Email is mandatory";
-                binding.etEmail.error = "Password is mandatory";
-            }
+                    binding.etEmail.error = "Email is mandatory";
+                    binding.etEmail.error = "Password is mandatory";
+                }
         }
 
         return binding.root

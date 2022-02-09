@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.graph->setCurrentFragment(charFragment)
                 R.id.map->setCurrentFragment(mapFragment)
                 R.id.fact->setCurrentFragment(factFragment)
-
             }
             true
         }
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setCurrentFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.mainFrameLayout,fragment)
+            replace(R.id.mainFrameLayout, fragment)
             commit()
         }
     }
