@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import hr.markic.budgetmanager.framework.startActivity
 
-class NasaReceiver : BroadcastReceiver() {
+class ProductReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         context.startActivity<MainActivity>()

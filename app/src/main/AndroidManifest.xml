@@ -21,12 +21,12 @@
 
         <provider
             android:name=".NasaProvider"
-            android:authorities="hr.markic.nasa.api.provider"
+            android:authorities="hr.markic.product.api.provider"
             android:enabled="true"
             android:exported="false" />
 
         <receiver
-            android:name=".NasaReceiver"
+            android:name=".ProductReceiver"
             android:enabled="true"
             android:exported="false" />
 

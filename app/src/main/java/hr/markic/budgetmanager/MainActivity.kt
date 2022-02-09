@@ -1,13 +1,18 @@
 package hr.markic.budgetmanager
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import hr.markic.budgetmanager.databinding.ActivityMainBinding
 import hr.markic.budgetmanager.fragments.CharFragment
 import hr.markic.budgetmanager.fragments.FactFragment
 import hr.markic.budgetmanager.fragments.MapsFragment
+import hr.markic.budgetmanager.framework.startActivity
 import hr.markic.budgetmanager.repository.RepositoryFactory
+import hr.markic.budgetmanager.repository.auth
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         val mapFragment = MapsFragment()
         val factFragment = FactFragment()
 
+
         setCurrentFragment(charFragment)
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
@@ -37,6 +43,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
+
 
     private fun setCurrentFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {

@@ -2,19 +2,13 @@ package hr.markic.budgetmanager
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
 import hr.markic.budgetmanager.databinding.ActivitySplashScreenBinding
 import hr.markic.budgetmanager.framework.*
 import hr.markic.budgetmanager.repository.RepositoryFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 private const val DELAY = 2000L
-const val DATA_IMPORTED = "hr.markic.nasa.data_imported"
+const val DATA_IMPORTED = "hr.markic.product.data_imported"
 
 class SplashScreenActivity : AppCompatActivity() {
 

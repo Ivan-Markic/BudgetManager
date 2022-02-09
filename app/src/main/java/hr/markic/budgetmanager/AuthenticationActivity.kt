@@ -14,6 +14,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import hr.markic.budgetmanager.fragments.RegisterFragment
+import hr.markic.budgetmanager.repository.auth
 import java.util.ArrayList
 
 
@@ -28,9 +29,7 @@ class AuthenticationActivity : AppCompatActivity() {
         binding = ActivityAuthenticationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (Firebase.auth.currentUser != null){
-            Firebase.auth.signOut()
-        }
+        auth.signOut()
 
         val user = Firebase.auth.currentUser
 

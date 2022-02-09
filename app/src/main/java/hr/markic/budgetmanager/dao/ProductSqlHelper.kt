@@ -14,16 +14,17 @@ private const val TABLE_NAME = "Items"
 private val CREATE = "create table $TABLE_NAME(" +
         "${Item::_id.name} integer primary key autoincrement, " +
         "${Item::title.name} text not null, " +
-        "${Item::explanation.name} text not null, " +
+        "${Item::price.name} integer not null, " +
+        "${Item::description.name} text not null, " +
         "${Item::picturePath.name} text not null, " +
-        "${Item::date.name} text not null, " +
+        "${Item::category.name} text not null, " +
         "${Item::read.name} integer not null" +
         ")"
 
 private const val DROP = "drop table $TABLE_NAME"
 
-class NasaSqlHelper(context: Context?)
-    : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION), NasaRepository {
+class ProductSqlHelper(context: Context?)
+    : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION), ProductRepository {
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CREATE)
     }

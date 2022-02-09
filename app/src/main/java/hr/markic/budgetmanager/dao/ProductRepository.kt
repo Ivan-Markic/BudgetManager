@@ -3,7 +3,7 @@ package hr.markic.budgetmanager.dao
 import android.content.ContentValues
 import android.database.Cursor
 
-interface NasaRepository {
+interface ProductRepository {
     fun delete(selection: String?, selectionArgs: Array<String>?): Int
 
     fun update(

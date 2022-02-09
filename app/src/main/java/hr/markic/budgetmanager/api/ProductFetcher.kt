@@ -4,8 +4,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.util.Log
 import hr.markic.budgetmanager.DATA_IMPORTED
-import hr.markic.budgetmanager.NASA_PROVIDER_URI
-import hr.markic.budgetmanager.NasaReceiver
+import hr.markic.budgetmanager.PRODUCT_PROVIDER_URI
+import hr.markic.budgetmanager.ProductReceiver
 import hr.markic.budgetmanager.framework.downloadImageAndStore
 import hr.markic.budgetmanager.framework.sendBroadcast
 import hr.markic.budgetmanager.framework.setBooleanPreference
@@ -18,7 +18,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class NasaFetcher(private val context: Context) {
+class ProductFetcher(private val context: Context) {
     private var nasaApi: NasaApi
     init {
         val retrofit = Retrofit.Builder()
@@ -31,44 +31,49 @@ class NasaFetcher(private val context: Context) {
     fun fetchItems() {
         val request = nasaApi.fetchItems()
 
-        request.enqueue(object: Callback<List<NasaItem>> {
+        request.enqueue(object: Callback<List<ProductItem>> {
             override fun onResponse(
-                call: Call<List<NasaItem>>,
-                response: Response<List<NasaItem>>
+                call: Call<List<ProductItem>>,
+                response: Response<List<ProductItem>>
             ) {
                 response.body()?.let {
                     populateItems(it)
                 }
             }
 
-            override fun onFailure(call: Call<List<NasaItem>>, t: Throwable) {
+            override fun onFailure(call: Call<List<ProductItem>>, t: Throwable) {
                 Log.e(javaClass.name, t.message, t)
             }
 
         })
     }
 
-    private fun populateItems(nasaItems: List<NasaItem>) {
+    private fun populateItems(nasaItems: List<ProductItem>) {
         GlobalScope.launch {
             nasaItems.forEach {
+
+                var fileName = it.title.replace(" ", "_")
+                fileName = fileName.replace("/", "_")
+                val pero = fileName
+
                 var picturePath = downloadImageAndStore(
                     context,
-                    it.url,
-                    it.title.replace(" ", "_")
-                )
+                    it.imageUrl,
+                    fileName)
 
                 val values = ContentValues().apply {
                     put(Item::title.name, it.title)
-                    put(Item::explanation.name, it.explanation)
+                    put(Item::price.name, it.price)
+                    put(Item::description.name, it.description)
                     put(Item::picturePath.name, picturePath ?: "")
-                    put(Item::date.name, it.date)
+                    put(Item::category.name, it.category)
                     put(Item::read.name, false)
                 }
-                context.contentResolver.insert(NASA_PROVIDER_URI, values)
+                context.contentResolver.insert(PRODUCT_PROVIDER_URI, values)
 
             }
             context.setBooleanPreference(DATA_IMPORTED, true)
-            context.sendBroadcast<NasaReceiver>()
+            context.sendBroadcast<ProductReceiver>()
         }
     }
 

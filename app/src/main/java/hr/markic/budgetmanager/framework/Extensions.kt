@@ -7,7 +7,6 @@ import android.content.Intent
 import android.location.Geocoder
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.preference.PreferenceManager
@@ -23,14 +22,11 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
-import hr.markic.budgetmanager.NASA_PROVIDER_URI
+import hr.markic.budgetmanager.PRODUCT_PROVIDER_URI
 import hr.markic.budgetmanager.R
 import hr.markic.budgetmanager.model.Bill
 import hr.markic.budgetmanager.model.Item
 import hr.markic.budgetmanager.model.Location
-import hr.markic.budgetmanager.repository.AppRepository
 import hr.markic.budgetmanager.repository.RepositoryFactory
 import hr.markic.budgetmanager.repository.auth
 import java.time.LocalDateTime
@@ -85,7 +81,7 @@ fun callDelayed(delay: Long, function: Runnable) {
 
 fun Context.fetchItems() : MutableList<Item> {
     val items = mutableListOf<Item>()
-    val cursor = contentResolver?.query(NASA_PROVIDER_URI,
+    val cursor = contentResolver?.query(PRODUCT_PROVIDER_URI,
         null,
         null,
         null,
@@ -94,9 +90,10 @@ fun Context.fetchItems() : MutableList<Item> {
         items.add(Item(
             cursor.getLong(cursor.getColumnIndexOrThrow(Item::_id.name)),
             cursor.getString(cursor.getColumnIndexOrThrow(Item::title.name)),
-            cursor.getString(cursor.getColumnIndexOrThrow(Item::explanation.name)),
+            cursor.getDouble(cursor.getColumnIndexOrThrow(Item::price.name)),
+            cursor.getString(cursor.getColumnIndexOrThrow(Item::description.name)),
             cursor.getString(cursor.getColumnIndexOrThrow(Item::picturePath.name)),
-            cursor.getString(cursor.getColumnIndexOrThrow(Item::date.name)),
+            cursor.getString(cursor.getColumnIndexOrThrow(Item::category.name)),
             cursor.getInt(cursor.getColumnIndexOrThrow(Item::read.name)) == 1
         ))
     }

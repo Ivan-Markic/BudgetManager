@@ -24,7 +24,7 @@ class ItemAdapter(private val context: Context, private val items: MutableList<I
         fun bind(item: Item) {
             Picasso.get()
                 .load(File(item.picturePath))
-                .error(R.drawable.nasa)
+                .error(R.drawable.product)
                 .transform(RoundedCornersTransformation(50, 5))
                 .into(ivItem)
             tvItem.text = item.title
@@ -58,7 +58,7 @@ class ItemAdapter(private val context: Context, private val items: MutableList<I
     private fun deleteItem(position: Int) {
         val item = items[position]
         context.contentResolver.delete(
-            ContentUris.withAppendedId(NASA_PROVIDER_URI, item._id!!),
+            ContentUris.withAppendedId(PRODUCT_PROVIDER_URI, item._id!!),
             null,
             null)
         File(item.picturePath).delete()

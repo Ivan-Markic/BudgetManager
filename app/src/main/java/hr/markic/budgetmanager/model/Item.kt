@@ -3,8 +3,9 @@ package hr.markic.budgetmanager.model
 data class Item(
     var _id: Long?,
     val title: String,
-    val explanation: String,
+    val price: Double,
+    val description: String,
     val picturePath: String,
-    val date: String,
+    val category: String,
     var read: Boolean
 )

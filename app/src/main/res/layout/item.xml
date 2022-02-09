@@ -17,7 +17,7 @@
             android:id="@+id/ivItem"
             android:layout_width="@dimen/ivSize"
             android:layout_height="@dimen/ivSize"
-            tools:src="@drawable/nasa" />
+            tools:src="@drawable/product" />
 
         <TextView
             android:id="@+id/tvItem"

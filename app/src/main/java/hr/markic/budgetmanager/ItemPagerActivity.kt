@@ -6,7 +6,7 @@ import hr.markic.budgetmanager.databinding.ActivityItemPagerBinding
 import hr.markic.budgetmanager.framework.fetchItems
 import hr.markic.budgetmanager.model.Item
 
-const val ITEM_POSITION = "hr.markic.nasa.item_position"
+const val ITEM_POSITION = "hr.markic.product.item_position"
 
 class ItemPagerActivity : AppCompatActivity() {
 

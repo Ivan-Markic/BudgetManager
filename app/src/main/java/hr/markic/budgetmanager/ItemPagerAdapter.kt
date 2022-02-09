@@ -1,5 +1,6 @@
 package hr.markic.budgetmanager
 
+import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
@@ -19,19 +20,24 @@ class ItemPagerAdapter(private val context: Context, private val items: MutableL
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         private val ivItem = itemView.findViewById<ImageView>(R.id.ivItem)
-        val ivRead = itemView.findViewById<ImageView>(R.id.ivRead)
+        val ivRead: ImageView = itemView.findViewById(R.id.ivRead)
         private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
-        private val tvExplanation = itemView.findViewById<TextView>(R.id.tvExplanation)
-        private val tvDate = itemView.findViewById<TextView>(R.id.tvDate)
+        private val tvCategory = itemView.findViewById<TextView>(R.id.tvCategory)
+        private val tvPrice = itemView.findViewById<TextView>(R.id.tvPrice)
+        private val tvDescription = itemView.findViewById<TextView>(R.id.tvDescription)
+
         fun bind(item: Item) {
             Picasso.get()
                 .load(File(item.picturePath))
-                .error(R.drawable.nasa)
+                .error(R.drawable.product)
                 .transform(RoundedCornersTransformation(50, 5))
                 .into(ivItem)
+            val priceString = item.price.toString() + " €"
             tvTitle.text = item.title
-            tvExplanation.text = item.explanation
-            tvDate.text = item.date
+            tvDescription.text = item.description
+            tvCategory.text = item.category
+            tvPrice.text = priceString
+
             ivRead.setImageResource(if (item.read) R.drawable.green_flag else R.drawable.red_flag)
         }
 
@@ -45,7 +51,7 @@ class ItemPagerAdapter(private val context: Context, private val items: MutableL
         val item = items[position]
         holder.ivRead.setOnClickListener {
             item.read = !item.read
-            val uri = ContentUris.withAppendedId(NASA_PROVIDER_URI, item._id!!)
+            val uri = ContentUris.withAppendedId(PRODUCT_PROVIDER_URI, item._id!!)
             val values = ContentValues().apply {
                 put(Item::read.name, item.read)
             }

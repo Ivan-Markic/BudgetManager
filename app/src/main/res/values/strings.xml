@@ -26,13 +26,18 @@
     <string name="bill_amount">Amount</string>
     <string name="graph">Graph</string>
     <string name="map">Map</string>
-    <string name="fact">Fact</string>
     <string name="delete">Delete</string>
     <string name="sure">Do you really delete</string>
     <string name="cancel">Cancel</string>
     <string name="date">Date</string>
     <string name="title">Title</string>
     <string name="explanation">Explanation</string>
+    <string name="price">Price</string>
+    <string name="description">Description</string>
+    <string name="category">Category</string>
+    <string name="catalog">Catalog</string>
+    <string name="exit">Exit</string>
+    <string name="really">Really exit app?</string>
 
     <string-array name="colors_names">
         <item>BLUE</item>
