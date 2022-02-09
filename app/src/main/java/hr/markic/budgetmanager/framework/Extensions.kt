@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import hr.markic.budgetmanager.NASA_PROVIDER_URI
 import hr.markic.budgetmanager.R
 import hr.markic.budgetmanager.model.Bill
 import hr.markic.budgetmanager.model.Item
@@ -42,6 +43,12 @@ fun View.startAnimation(animationId: Int)
 inline fun<reified T : Activity> Context.startActivity()
         = startActivity(Intent(this, T::class.java).apply {
     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+})
+
+inline fun<reified T : Activity> Context.startActivity(key: String, value: Int)
+        = startActivity(Intent(this, T::class.java).apply {
+    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    putExtra(key, value)
 })
 inline fun<reified T: BroadcastReceiver> Context.sendBroadcast()
         = sendBroadcast(Intent(this, T::class.java))
@@ -78,7 +85,7 @@ fun callDelayed(delay: Long, function: Runnable) {
 
 fun Context.fetchItems() : MutableList<Item> {
     val items = mutableListOf<Item>()
-    val cursor = contentResolver?.query( Uri.parse("write that"),
+    val cursor = contentResolver?.query(NASA_PROVIDER_URI,
         null,
         null,
         null,

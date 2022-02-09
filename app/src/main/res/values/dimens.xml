@@ -13,4 +13,11 @@
     <dimen name="ivSplashHeight">400dp</dimen>
     <dimen name="splashTextSize">50sp</dimen>
     <dimen name="ivSplashWidth">300dp</dimen>
+    <dimen name="paddingItems">10dp</dimen>
+    <dimen name="ivHeight">300dp</dimen>
+    <dimen name="marginTopDate">20dp</dimen>
+    <dimen name="cornerRadius">9dp</dimen>
+    <dimen name="ivSize">50dp</dimen>
+    <dimen name="textSizeItems">20sp</dimen>
+    <dimen name="marginLeftItems">20dp</dimen>
 </resources>

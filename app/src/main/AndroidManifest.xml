@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="hr.markic.budgetmanager">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -16,7 +15,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BudgetManager">
+        <activity
+            android:name=".ItemPagerActivity"
+            android:exported="false" />
 
+        <provider
+            android:name=".NasaProvider"
+            android:authorities="hr.markic.nasa.api.provider"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver
+            android:name=".NasaReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service
+            android:name=".NasaService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

@@ -3,14 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Programing/Android_projects/BudgetManager/app/src/main/res/drawable/item.xml" value="0.2703125" />
         <entry key="..\:/Programing/Android_projects/BudgetManager/app/src/main/res/layout-v28/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Programing/Android_projects/BudgetManager/app/src/main/res/layout/activity_authentication.xml" value="0.264" />
+        <entry key="..\:/Programing/Android_projects/BudgetManager/app/src/main/res/layout/activity_item_pager.xml" value="0.25416666666666665" />
         <entry key="..\:/Programing/Android_projects/BudgetManager/app/src/main/res/layout/activity_main.xml" value="0.4" />
         <entry key="..\:/Programing/Android_projects/BudgetManager/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
-        <entry key="..\:/Programing/Android_projects/BudgetManager/app/src/main/res/layout/fragment_char.xml" value="0.25416666666666665" />
+        <entry key="..\:/Programing/Android_projects/BudgetManager/app/src/main/res/layout/fragment_char.xml" value="0.2" />
+        <entry key="..\:/Programing/Android_projects/BudgetManager/app/src/main/res/layout/fragment_fact.xml" value="0.13020833333333334" />
         <entry key="..\:/Programing/Android_projects/BudgetManager/app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="..\:/Programing/Android_projects/BudgetManager/app/src/main/res/layout/fragment_maps.xml" value="0.264" />
         <entry key="..\:/Programing/Android_projects/BudgetManager/app/src/main/res/layout/fragment_register.xml" value="0.4" />
+        <entry key="..\:/Programing/Android_projects/BudgetManager/app/src/main/res/layout/item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Programing/Android_projects/BudgetManager/app/src/main/res/layout/item_pager.xml" value="0.25416666666666665" />
         <entry key="..\:/Programing/Android_projects/BudgetManager/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Programing/Android_projects/BudgetManager/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.14635416666666667" />
       </map>

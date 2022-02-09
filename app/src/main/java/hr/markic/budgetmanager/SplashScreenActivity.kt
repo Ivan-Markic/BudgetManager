@@ -1,5 +1,6 @@
 package hr.markic.budgetmanager
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.MainThread
@@ -11,6 +12,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
+private const val DELAY = 2000L
+const val DATA_IMPORTED = "hr.markic.nasa.data_imported"
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -31,23 +35,24 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun redirect() {
-        if (!getBooleanPreference("message")) {
 
-            GlobalScope.launch {
+        if (getBooleanPreference(DATA_IMPORTED)) {
 
-                RepositoryFactory.createRepository().getBills()
-
-                withContext(Dispatchers.Main){
-                    callDelayed(3000) {startActivity<MainActivity>()}
-                }
-            }
-
+            RepositoryFactory.createRepository().getBills()
+            callDelayed(DELAY) {startActivity<MainActivity>()}
         } else {
             if (isOnline()) {
+                RepositoryFactory.createRepository().getBills()
+                Intent(this, NasaService::class.java).apply {
+                    NasaService.enqueue(
+                        this@SplashScreenActivity,
+                        this
+                    )
+                }
 
             } else {
                 binding.tvSplash.text = getString(R.string.no_internet)
-                callDelayed(3000) {finish()}
+                callDelayed(DELAY) {finish()}
             }
         }
     }

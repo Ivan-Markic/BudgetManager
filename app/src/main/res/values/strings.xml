@@ -27,6 +27,12 @@
     <string name="graph">Graph</string>
     <string name="map">Map</string>
     <string name="fact">Fact</string>
+    <string name="delete">Delete</string>
+    <string name="sure">Do you really delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="date">Date</string>
+    <string name="title">Title</string>
+    <string name="explanation">Explanation</string>
 
     <string-array name="colors_names">
         <item>BLUE</item>
@@ -43,6 +49,64 @@
         <item>HOUSE</item>
         <item>FUN</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="listOfGraphDisplay">
+        <item>Choose graph</item>
+        <item>This Day</item>
+        <item>This Week</item>
+        <item>This Month</item>
+        <item>This Year</item>
+    </string-array>
+
+    <string-array name="listOfHours">
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+    </string-array>
+
+    <string-array name="listOfDays">
+        <item>MON</item>
+        <item>TUE</item>
+        <item>WED</item>
+        <item>THU</item>
+        <item>FRI</item>
+        <item>SAT</item>
+        <item>SUN</item>
+    </string-array>
+
+    <string-array name="listOfMonths">
+        <item>JAN</item>
+        <item>FEB</item>
+        <item>MAR</item>
+        <item>APR</item>
+        <item>MAY</item>
+        <item>JUN</item>
+        <item>JUL</item>
+        <item>AUG</item>
+        <item>SEP</item>
+        <item>OCT</item>
+        <item>SEP</item>
+        <item>DEC</item>
+    </string-array>
+
 </resources>
