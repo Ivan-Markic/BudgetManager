@@ -1,4 +1,4 @@
 package hr.markic.budgetmanager.model
 
-class Location(var title:String, var description:String, var latitude:Double, var longitude:Double, var colorID:Float) {
+class Location(var title:String, var latitude:Double, var longitude:Double, var colorName:String , var colorID:Float, var billID:Long) {
 }

@@ -2,9 +2,15 @@ package hr.markic.budgetmanager
 
 import android.os.Bundle
 import android.util.Log
+import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
 import hr.markic.budgetmanager.databinding.ActivitySplashScreenBinding
 import hr.markic.budgetmanager.framework.*
+import hr.markic.budgetmanager.repository.RepositoryFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -26,11 +32,18 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private fun redirect() {
         if (!getBooleanPreference("message")) {
-            callDelayed(3000) {startActivity<MainActivity>()}
+
+            GlobalScope.launch {
+
+                RepositoryFactory.createRepository().getBills()
+
+                withContext(Dispatchers.Main){
+                    callDelayed(3000) {startActivity<MainActivity>()}
+                }
+            }
+
         } else {
             if (isOnline()) {
-                Log.d("aj", "reci")
-
 
             } else {
                 binding.tvSplash.text = getString(R.string.no_internet)

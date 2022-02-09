@@ -16,18 +16,17 @@ import hr.markic.budgetmanager.R
 import hr.markic.budgetmanager.SplashScreenActivity
 import hr.markic.budgetmanager.databinding.FragmentLoginBinding
 import hr.markic.budgetmanager.framework.startActivity
+import hr.markic.budgetmanager.repository.RepositoryFactory
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
 private const val EMAIL_PARAMETER = "hr.markic.fragments.email_parameter"
 private const val PASSWORD_PARAMETER = "hr.markic.fragments.password_parameter"
-lateinit var CURRENT_USERNAME: String
 
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
-    private lateinit var auth: FirebaseAuth
     private var email: String? = null
     private var password: String? = null
 
@@ -45,10 +44,6 @@ class LoginFragment : Fragment() {
     ): View {
 
         binding = FragmentLoginBinding.inflate(inflater, container, false)
-        auth = Firebase.auth
-
-        var tvRegister = binding.tvRegister;
-        var btnLogin = binding.btnLogin;
 
         binding.etEmail.setText("ivanmarka555@gmail.com");
         binding.etPassword.setText("peropero");
@@ -58,19 +53,20 @@ class LoginFragment : Fragment() {
             binding.etPassword.setText(password)
         }
 
-        tvRegister.setOnClickListener {
+        binding.tvRegister.setOnClickListener {
 
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.frameLayout, RegisterFragment())?.commit()
         }
 
-        btnLogin.setOnClickListener {
+        binding.btnLogin.setOnClickListener {
 
-            if (binding.etEmail.text.toString()
-                    .isNotBlank() && binding.etPassword.text.isNotBlank()
+            if (binding.etEmail.text.toString().isNotBlank()
+                && binding.etPassword.text.isNotBlank()
             )
                 GlobalScope.launch {
-                    loginUser(binding.etEmail.text.toString(), binding.etPassword.text.toString())
+                    RepositoryFactory.createRepository()
+                        .loginUser(binding.etEmail.text.toString(), binding.etPassword.text.toString(), requireContext())
                 } else {
                 binding.etEmail.error = "Email is mandatory";
                 binding.etEmail.error = "Password is mandatory";
@@ -78,30 +74,6 @@ class LoginFragment : Fragment() {
         }
 
         return binding.root
-    }
-
-    private fun loginUser(email: String, password: String) {
-
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener() { task ->
-                if (task.isSuccessful) {
-
-                    val username = auth.currentUser!!.displayName!!;
-
-                    CURRENT_USERNAME = username
-
-                    requireContext().startActivity<SplashScreenActivity>()
-
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(ContentValues.TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        context, task.exception?.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-
     }
 
     companion object {

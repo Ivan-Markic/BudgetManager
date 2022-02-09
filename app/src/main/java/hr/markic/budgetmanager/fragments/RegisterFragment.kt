@@ -17,6 +17,9 @@ import hr.markic.budgetmanager.R
 import hr.markic.budgetmanager.databinding.FragmentRegisterBinding
 import hr.markic.budgetmanager.model.Bill
 import hr.markic.budgetmanager.model.User
+import hr.markic.budgetmanager.repository.AppRepository
+import hr.markic.budgetmanager.repository.RepositoryFactory
+import kotlinx.coroutines.GlobalScope
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
@@ -24,7 +27,6 @@ import java.time.ZoneOffset
 class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,16 +35,15 @@ class RegisterFragment : Fragment() {
 
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
 
-        auth = Firebase.auth
-
         binding.btnRegister.setOnClickListener {
 
             if (dataIsValid()) {
 
+                val username = binding.etUsername.text.toString()
                 val email = binding.etEmail.text.toString()
                 val password = binding.etPassword.text.toString()
 
-                registerUser(email, password)
+                RepositoryFactory.createRepository().registerUser(username, email, password, requireContext(), requireActivity())
 
             } else {
                 binding.etUsername.error = "Username is mandatory"
@@ -51,58 +52,6 @@ class RegisterFragment : Fragment() {
             }
         }
         return binding.root
-    }
-
-    private fun registerUser(email: String, password: String) {
-
-        val username = binding.etUsername.text.toString()
-        val database = FirebaseDatabase.getInstance("https://budgetmanager-b7e7a-default-rtdb.europe-west1.firebasedatabase.app/");
-        val usersDB = database.getReference("Users")
-        val billsDB = database.getReference("Bills")
-
-        usersDB.child(username).get().addOnSuccessListener {
-
-            if (!it.exists()){
-                auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener() { task ->
-                        if (task.isSuccessful) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success")
-                            Toast.makeText(
-                                context, "Authentication successed.",
-                                Toast.LENGTH_SHORT
-                            ).show()
-
-                            val user = User(username, email)
-                            usersDB.child(user.username).setValue(user)
-
-                            val userProfileChangeRequest = userProfileChangeRequest {
-                                this.displayName = username
-                            }
-
-                            auth.currentUser!!.updateProfile(userProfileChangeRequest)
-
-                            activity?.supportFragmentManager?.beginTransaction()
-                                ?.replace(R.id.frameLayout, LoginFragment.newInstance(email, password))
-                                ?.commit()
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                            Toast.makeText(
-                                context, task.exception?.message,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-
-            } else {
-                Toast.makeText(context, "User with this username exist, try different", Toast.LENGTH_LONG).show()
-            }
-        }
-
-
-
     }
 
     private fun dataIsValid() =
